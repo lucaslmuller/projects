@@ -32,19 +32,18 @@ function Ball(x, y, r) {
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.y + this.r > innerHeight || (this.y - this.r) < 0) {
-            this.vy = this.vy * -1;
+        if (this.y + this.r >= innerHeight || (this.y - this.r) <= 0) {
+            this.vy = (this.vy + .5) * -1;
         }
 
-        if (this.vx < 0 && this.checkCollision(players.left, 'left') || (this.vx > 0 && this.checkCollision(players.right, 'right'))) {
-            // console.log('collision')
-            this.vx = this.vx * -1;
+        if (this.vx <= 0 && this.checkCollision(players.left, 'left') || (this.vx >= 0 && this.checkCollision(players.right, 'right'))) {
+            this.vx = (this.vx + .5) * -1;
         }
 
-        if ((this.vx < 0 && this.x < 5) || (this.vx < 0 && this.x < 5)) {
+        if ((this.vx <= 0 && this.x < 5) || (this.vx <= 0 && this.x < 5)) {
             players.right.points++;
             this.reset();
-        } else if ((this.vx > 0 && (this.x + this.r) > (players.right.x + players.right.w + 5))) {
+        } else if ((this.vx >= 0 && (this.x + this.r) > (players.right.x + players.right.w + 5))) {
             players.left.points++;
             this.reset();
         }
