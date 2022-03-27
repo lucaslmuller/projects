@@ -121,6 +121,12 @@ function setup() {
         }
     });
 
+    canvas.addEventListener('touchmove', (e) => {
+        if (game.started && !game.paused) {
+            players.left.setY(e.changedTouches[0].clientY);
+        }
+    });
+
     draw();
 }
 
