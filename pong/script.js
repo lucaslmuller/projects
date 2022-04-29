@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 
 const game = {
-    paused: false,
+    paused: true,
     started: true,
 };
 
@@ -118,6 +118,12 @@ function setup() {
     canvas.addEventListener('mousemove', (e) => {
         if (game.started && !game.paused) {
             players.left.setY(e.clientY);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            game.paused = !game.paused;
         }
     });
 
