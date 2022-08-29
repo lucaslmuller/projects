@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    --win-indicator-thickness: 6px;
+    --board-dimensions-value: 500;
+    --board-dimensions: calc(var(--board-dimensions-value) * 1px);
+    --board-background: #272C35;
+
+    background-color: var(--board-background);
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#game {
+    position: relative;
+    width: var(--board-dimensions);
+    height: var(--board-dimensions);
+    background-color: #FFF;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 4px;
+}
+
+
+/* ------------------------------------ */
+
+#game .win-indicator {
+    position: absolute;
+    background: #FFF;
+    z-index: 1;
+}
+
+/* ------------------------------------ */
+
+#game.win-row .win-indicator {
+    height: var(--win-indicator-thickness);
+    left: 0;
+    width: 100%;
+}
+
+#game.win-row-0 .win-indicator {
+    top: 0;
+    transform: translateY(calc(var(--board-dimensions) / 3 / 2 - (var(--win-indicator-thickness) / 2)));
+}
+
+#game.win-row-1 .win-indicator {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#game.win-row-2 .win-indicator {
+    bottom: 0;
+    transform: translateY(calc(-1*(var(--board-dimensions) / 3 / 2 - (var(--win-indicator-thickness) / 2))));
+}
+
+/* ------------------------------------ */
+
+#game.win-col .win-indicator {
+    height: 100%;
+    top: 0;
+    width: var(--win-indicator-thickness);
+}
+
+#game.win-col-0 .win-indicator {
+    left: 0;
+    transform: translateX(calc(var(--board-dimensions) / 3 / 2 - (var(--win-indicator-thickness) / 2)));
+}
+
+#game.win-col-1 .win-indicator {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#game.win-col-2 .win-indicator {
+    right: 0;
+    transform: translateX(calc(-1*(var(--board-dimensions) / 3 / 2 - (var(--win-indicator-thickness) / 2))));
+}
+
+/* ------------------------------------ */
+
+#game.win-diagonal .win-indicator {
+    height: var(--win-indicator-thickness);
+    top: 50%;
+    width: calc(var(--board-dimensions-value) * 1px + 200px);
+    left: 50%;
+    transform-origin: center;
+}
+
+#game.win-diagonal-0 .win-indicator {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#game.win-diagonal-1 .win-indicator {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* ------------------------------------ */
+
+#game .cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--board-background);
+    cursor: pointer;
+}
+
+#game .cell.x::before,
+#game .cell.x::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 4px;
+    background-color: #FFF;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#game .cell.x::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#game .cell.o::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 4px solid #FFF;
+}
+
+#game .cell:hover {
+    background-color: #2B323D;
+}
+
+.turn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #FFF;
+    font-size: 25px;
+}
